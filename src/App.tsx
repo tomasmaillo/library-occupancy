@@ -1,5 +1,4 @@
-import React, { createContext, useContext, useState } from "react";
-import "./App.css";
+import React, { createContext, useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "./Header";
 import { BackgroundColor, TextColor } from "./colors";
@@ -10,9 +9,12 @@ import {
 } from "./LibraryData/LibraryDataContext";
 import Carousel from "./Carousel";
 import Gap from "./Gap";
+import LoadingAnimation from "./LoadingAnimation";
+import Bar from "./Bar";
 
 const Main = styled.div`
   font-size: 5rem;
+  padding: 8px;
   margin: auto;
   max-width: 760px;
 `;
@@ -20,6 +22,7 @@ const Main = styled.div`
 const Background = styled.div`
   color: ${TextColor};
   background-color: ${BackgroundColor};
+  transition: 0.5s;
   height: 100vh;
 `;
 
@@ -30,29 +33,39 @@ const Row = styled.div`
   align-items: baseline;
 `;
 
-function App() {
+const App = () => {
   const { data } = useLibraryData();
+
+  if (!data) return <LoadingAnimation />;
+
+  return (
+    <Background>
+      <Gap height="7vh" />
+      <Main>
+        <Header />
+        <Bar />
+      </Main>
+      <Carousel />
+      <Main>
+        <Row>
+          <div className="css-1d590da">
+            <div className="css-1p22ljb">
+              {2300 * ((data?.percentage as any) / 100)}
+            </div>
+          </div>
+          <Graph />
+        </Row>
+      </Main>
+    </Background>
+  );
+};
+
+const Page = () => {
   return (
     <LibraryDataContextProvider>
-      <Background>
-        <Gap height="7vh" />
-        <Main>
-          <Header />
-        </Main>
-        <Carousel />
-        <Main>
-          <Row>
-            <div className="css-1d590da">
-              <div className="css-1p22ljb">
-                {2300 * ((data.percentage as any) / 100)}
-              </div>
-            </div>
-            <Graph />
-          </Row>
-        </Main>
-      </Background>
+      <App />
     </LibraryDataContextProvider>
   );
-}
+};
 
-export default App;
+export default Page;

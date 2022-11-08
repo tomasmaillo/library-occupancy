@@ -5,10 +5,6 @@ import {
 } from "./libraryDataTypes";
 
 const defaultLibraryData: LibraryDataContextInterface = {
-  data: {
-    time: "dd/mm",
-    percentage: 100,
-  },
   setData: () => {},
 };
 
@@ -16,7 +12,7 @@ export const LibraryDataContext =
   createContext<LibraryDataContextInterface>(defaultLibraryData);
 
 export const LibraryDataContextProvider = ({ children }: any) => {
-  const [data, setData] = useState<LibraryDataInterface>(
+  const [data, setData] = useState<LibraryDataInterface | undefined>(
     defaultLibraryData.data
   );
 
@@ -24,6 +20,13 @@ export const LibraryDataContextProvider = ({ children }: any) => {
     "https://lac-edwebtools.is.ed.ac.uk/discovered/occupy/MainLibrary.json";
 
   useEffect(() => {
+    // const fetchAndStoreData = async () => {
+    //   setData({
+    //     time: "10/20",
+    //     percentage: Math.floor(Math.random() * 100),
+    //   });
+    // };
+
     const fetchAndStoreData = async () => {
       let occupancy = 100;
       let lastFetched = "dd/mm";
@@ -37,23 +40,18 @@ export const LibraryDataContextProvider = ({ children }: any) => {
 
       setData({ time: lastFetched, percentage: occupancy });
     };
-
     fetchAndStoreData();
-    const interval = setInterval(fetchAndStoreData, 5 * 60 * 1000); // run every 5mins
 
+    const interval = setInterval(fetchAndStoreData, 5 * 60 * 1000); // run every 5mins
     return () => clearInterval(interval);
   }, []);
 
-  return (
-    <LibraryDataContext.Provider
-      value={{ data, setData }}
-      children={children}
-    />
-  );
+  const value = { data, setData };
+
+  return <LibraryDataContext.Provider value={value} children={children} />;
 };
 
 export const useLibraryData = () => {
-  const { data, setData } = useContext(LibraryDataContext);
-
-  return { data, setData } as LibraryDataContextInterface;
+  const value = useContext(LibraryDataContext);
+  return value as LibraryDataContextInterface;
 };

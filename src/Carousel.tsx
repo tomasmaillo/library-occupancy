@@ -3,7 +3,7 @@ import { TextColor } from "./colors";
 
 const CarouselWrapper = styled.div`
   display: flex;
-  border: 1px solid ${TextColor};
+  border: 1px solid ${() => TextColor};
   border-width: 1px 0px 1px 0px;
   height: 5vh;
 `;

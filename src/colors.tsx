@@ -7,6 +7,11 @@ type Color = {
   background: string;
 };
 
+const defaultColors = {
+  text: "black",
+  background: "white",
+};
+
 const colorVariations: Color[] = [
   {
     max: 50,
@@ -37,12 +42,16 @@ const colorVariations: Color[] = [
 
 export const BackgroundColor = () => {
   const { data } = useLibraryData();
+  if (!data?.percentage) return defaultColors.background;
+
   const color = colorVariations.find((color) => data.percentage < color.max);
-  return color?.background;
+  return color?.background || defaultColors.background;
 };
 
 export const TextColor = () => {
   const { data } = useLibraryData();
-  const color = colorVariations.find((color) => data.percentage < color.max);
-  return color?.text;
+  if (!data?.percentage) return defaultColors.text;
+
+  const color = colorVariations.find((color) => data?.percentage < color.max);
+  return color?.text || defaultColors.text;
 };

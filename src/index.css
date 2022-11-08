@@ -1,11 +1,22 @@
 body {
   margin: 0;
-  font-family: system-ui, sans-serif;
+  font-family: "HK Grotesk";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-family: HKGroteskWide-SemiBold !important;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+html {
+  overflow-x: hidden;
+  transition: all 0.5s !important;
+}
+
+html,
+body {
+  overflow: hidden;
 }
