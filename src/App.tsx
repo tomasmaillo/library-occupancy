@@ -40,6 +40,8 @@ const App = () => {
 
   if (!data) return <LoadingAnimation />;
 
+  document.body.style.backgroundColor = BackgroundColor();
+
   return (
     <Background>
       <Gap height="7vh" />

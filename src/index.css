@@ -3,7 +3,7 @@ body {
   font-family: "HK Grotesk";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: HKGroteskWide-SemiBold !important;
+  transition: 0.5s;
 }
 
 code {
@@ -16,7 +16,12 @@ html {
   transition: all 0.5s !important;
 }
 
-html,
-body {
-  overflow: hidden;
+html body {
+  overflow-x: hidden;
+}
+
+@font-face {
+  font-family: "HK Grotesk";
+  src: local("HK Grotesk"),
+    url("./fonts/HKGroteskWide-SemiBold.otf") format("opentype");
 }

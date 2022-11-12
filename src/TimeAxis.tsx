@@ -1,6 +1,5 @@
 import { useLayoutEffect, useState } from "react";
 import styled from "styled-components";
-import { BackgroundColor } from "./colors";
 
 const Main = styled.div`
   font-size: 5rem;
@@ -61,7 +60,7 @@ const TimeAxis = () => {
                 x={(width / times.length) * i + 3}
                 y="10"
                 fill="#ffffff"
-                font-size="0.5rem"
+                fontSize="0.5rem"
               >
                 {time}
               </text>
