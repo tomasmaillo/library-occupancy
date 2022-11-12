@@ -1,17 +1,711 @@
+import { useState, useEffect, useLayoutEffect } from "react";
+import { BackgroundColor, TextColor } from "./colors";
+import { LibraryDataInterface } from "./LibraryData/libraryDataTypes";
+
+// fake data as historical data is not available *yet*
+const fakeData = [
+  {
+    time: "9:20",
+    percent: 20,
+  },
+  {
+    time: "9:25",
+    percent: 21,
+  },
+  {
+    time: "9:30",
+    percent: 23,
+  },
+  {
+    time: "9:35",
+    percent: 25,
+  },
+  {
+    time: "9:40",
+    percent: 26,
+  },
+  {
+    time: "9:45",
+    percent: 28,
+  },
+  {
+    time: "9:50",
+    percent: 29,
+  },
+  {
+    time: "9:55",
+    percent: 31,
+  },
+  {
+    time: "10:00",
+    percent: 35,
+  },
+  {
+    time: "10:05",
+    percent: 38,
+  },
+  {
+    time: "10:10",
+    percent: 40,
+  },
+  {
+    time: "10:15",
+    percent: 41,
+  },
+  {
+    time: "10:20",
+    percent: 43,
+  },
+  {
+    time: "10:25",
+    percent: 45,
+  },
+  {
+    time: "10:30",
+    percent: 47,
+  },
+  {
+    time: "10:35",
+    percent: 48,
+  },
+  {
+    time: "10:40",
+    percent: 50,
+  },
+  {
+    time: "10:45",
+    percent: 51,
+  },
+  {
+    time: "10:50",
+    percent: 51,
+  },
+  {
+    time: "10:55",
+    percent: 53,
+  },
+  {
+    time: "11:01",
+    percent: 57,
+  },
+  {
+    time: "11:05",
+    percent: 59,
+  },
+  {
+    time: "11:10",
+    percent: 61,
+  },
+  {
+    time: "11:15",
+    percent: 62,
+  },
+  {
+    time: "11:20",
+    percent: 64,
+  },
+  {
+    time: "11:25",
+    percent: 65,
+  },
+  {
+    time: "11:30",
+    percent: 66,
+  },
+  {
+    time: "11:35",
+    percent: 66,
+  },
+  {
+    time: "11:40",
+    percent: 66,
+  },
+  {
+    time: "11:45",
+    percent: 67,
+  },
+  {
+    time: "11:50",
+    percent: 67,
+  },
+  {
+    time: "11:55",
+    percent: 68,
+  },
+  {
+    time: "12:00",
+    percent: 66,
+  },
+  {
+    time: "12:05",
+    percent: 65,
+  },
+  {
+    time: "12:10",
+    percent: 66,
+  },
+  {
+    time: "12:15",
+    percent: 68,
+  },
+  {
+    time: "12:20",
+    percent: 67,
+  },
+  {
+    time: "12:25",
+    percent: 67,
+  },
+  {
+    time: "12:30",
+    percent: 67,
+  },
+  {
+    time: "12:35",
+    percent: 67,
+  },
+  {
+    time: "12:40",
+    percent: 66,
+  },
+  {
+    time: "12:45",
+    percent: 67,
+  },
+  {
+    time: "12:50",
+    percent: 67,
+  },
+  {
+    time: "12:55",
+    percent: 65,
+  },
+  {
+    time: "13:00",
+    percent: 63,
+  },
+  {
+    time: "13:05",
+    percent: 63,
+  },
+  {
+    time: "13:10",
+    percent: 63,
+  },
+  {
+    time: "13:15",
+    percent: 64,
+  },
+  {
+    time: "13:20",
+    percent: 64,
+  },
+  {
+    time: "13:25",
+    percent: 65,
+  },
+  {
+    time: "13:30",
+    percent: 66,
+  },
+  {
+    time: "13:35",
+    percent: 66,
+  },
+  {
+    time: "13:40",
+    percent: 66,
+  },
+  {
+    time: "13:45",
+    percent: 66,
+  },
+  {
+    time: "13:50",
+    percent: 66,
+  },
+  {
+    time: "13:55",
+    percent: 66,
+  },
+  {
+    time: "14:00",
+    percent: 66,
+  },
+  {
+    time: "14:05",
+    percent: 67,
+  },
+  {
+    time: "14:10",
+    percent: 69,
+  },
+  {
+    time: "14:15",
+    percent: 71,
+  },
+  {
+    time: "14:20",
+    percent: 71,
+  },
+  {
+    time: "14:25",
+    percent: 72,
+  },
+  {
+    time: "14:30",
+    percent: 73,
+  },
+  {
+    time: "14:35",
+    percent: 73,
+  },
+  {
+    time: "14:40",
+    percent: 73,
+  },
+  {
+    time: "14:45",
+    percent: 74,
+  },
+  {
+    time: "14:50",
+    percent: 72,
+  },
+  {
+    time: "14:56",
+    percent: 71,
+  },
+  {
+    time: "15:00",
+    percent: 70,
+  },
+  {
+    time: "15:05",
+    percent: 71,
+  },
+  {
+    time: "15:10",
+    percent: 72,
+  },
+  {
+    time: "15:15",
+    percent: 73,
+  },
+  {
+    time: "15:20",
+    percent: 75,
+  },
+  {
+    time: "15:25",
+    percent: 74,
+  },
+  {
+    time: "15:30",
+    percent: 74,
+  },
+  {
+    time: "15:35",
+    percent: 74,
+  },
+  {
+    time: "15:40",
+    percent: 74,
+  },
+  {
+    time: "15:45",
+    percent: 73,
+  },
+  {
+    time: "15:50",
+    percent: 73,
+  },
+  {
+    time: "15:55",
+    percent: 72,
+  },
+  {
+    time: "16:00",
+    percent: 69,
+  },
+  {
+    time: "16:05",
+    percent: 68,
+  },
+  {
+    time: "16:10",
+    percent: 68,
+  },
+  {
+    time: "16:15",
+    percent: 69,
+  },
+  {
+    time: "16:20",
+    percent: 69,
+  },
+  {
+    time: "16:25",
+    percent: 67,
+  },
+  {
+    time: "16:30",
+    percent: 66,
+  },
+  {
+    time: "16:35",
+    percent: 66,
+  },
+  {
+    time: "16:40",
+    percent: 66,
+  },
+  {
+    time: "16:45",
+    percent: 65,
+  },
+  {
+    time: "16:50",
+    percent: 66,
+  },
+  {
+    time: "16:55",
+    percent: 64,
+  },
+  {
+    time: "17:00",
+    percent: 61,
+  },
+  {
+    time: "17:05",
+    percent: 60,
+  },
+  {
+    time: "17:10",
+    percent: 59,
+  },
+  {
+    time: "17:15",
+    percent: 57,
+  },
+  {
+    time: "17:20",
+    percent: 56,
+  },
+  {
+    time: "17:25",
+    percent: 56,
+  },
+  {
+    time: "17:30",
+    percent: 56,
+  },
+  {
+    time: "17:35",
+    percent: 54,
+  },
+  {
+    time: "17:40",
+    percent: 53,
+  },
+  {
+    time: "17:45",
+    percent: 52,
+  },
+  {
+    time: "17:50",
+    percent: 50,
+  },
+  {
+    time: "17:55",
+    percent: 48,
+  },
+  {
+    time: "18:00",
+    percent: 46,
+  },
+  {
+    time: "18:05",
+    percent: 45,
+  },
+  {
+    time: "18:10",
+    percent: 45,
+  },
+  {
+    time: "18:15",
+    percent: 43,
+  },
+  {
+    time: "18:20",
+    percent: 42,
+  },
+  {
+    time: "18:25",
+    percent: 41,
+  },
+  {
+    time: "18:30",
+    percent: 40,
+  },
+  {
+    time: "18:35",
+    percent: 40,
+  },
+  {
+    time: "18:40",
+    percent: 39,
+  },
+  {
+    time: "18:45",
+    percent: 38,
+  },
+  {
+    time: "18:50",
+    percent: 36,
+  },
+  {
+    time: "18:55",
+    percent: 36,
+  },
+  {
+    time: "19:00",
+    percent: 35,
+  },
+  {
+    time: "19:05",
+    percent: 33,
+  },
+  {
+    time: "19:10",
+    percent: 33,
+  },
+  {
+    time: "19:16",
+    percent: 32,
+  },
+  {
+    time: "19:20",
+    percent: 32,
+  },
+  {
+    time: "19:25",
+    percent: 31,
+  },
+  {
+    time: "19:30",
+    percent: 31,
+  },
+  {
+    time: "19:35",
+    percent: 30,
+  },
+  {
+    time: "19:40",
+    percent: 30,
+  },
+  {
+    time: "19:45",
+    percent: 29,
+  },
+  {
+    time: "19:50",
+    percent: 29,
+  },
+  {
+    time: "19:55",
+    percent: 29,
+  },
+  {
+    time: "20:00",
+    percent: 29,
+  },
+  {
+    time: "20:05",
+    percent: 28,
+  },
+  {
+    time: "20:10",
+    percent: 27,
+  },
+  {
+    time: "20:15",
+    percent: 27,
+  },
+  {
+    time: "20:20",
+    percent: 28,
+  },
+  {
+    time: "20:25",
+    percent: 28,
+  },
+  {
+    time: "20:30",
+    percent: 27,
+  },
+  {
+    time: "20:35",
+    percent: 27,
+  },
+  {
+    time: "20:40",
+    percent: 27,
+  },
+  {
+    time: "20:45",
+    percent: 27,
+  },
+  {
+    time: "20:50",
+    percent: 27,
+  },
+  {
+    time: "20:55",
+    percent: 27,
+  },
+  {
+    time: "21:00",
+    percent: 26,
+  },
+  {
+    time: "21:05",
+    percent: 26,
+  },
+  {
+    time: "21:10",
+    percent: 26,
+  },
+  {
+    time: "21:15",
+    percent: 25,
+  },
+  {
+    time: "21:20",
+    percent: 25,
+  },
+  {
+    time: "21:25",
+    percent: 24,
+  },
+  {
+    time: "21:30",
+    percent: 24,
+  },
+  {
+    time: "21:35",
+    percent: 24,
+  },
+  {
+    time: "21:40",
+    percent: 23,
+  },
+  {
+    time: "21:45",
+    percent: 22,
+  },
+  {
+    time: "21:50",
+    percent: 22,
+  },
+  {
+    time: "21:55",
+    percent: 22,
+  },
+  {
+    time: "22:01",
+    percent: 21,
+  },
+  {
+    time: "22:06",
+    percent: 21,
+  },
+  {
+    time: "22:10",
+    percent: 20,
+  },
+  {
+    time: "22:15",
+    percent: 20,
+  },
+  {
+    time: "22:20",
+    percent: 20,
+  },
+  {
+    time: "22:25",
+    percent: 20,
+  },
+  {
+    time: "22:30",
+    percent: 20,
+  },
+];
+
+const readingsPerDay = 158; // TODO: will have to be a calculated from the selected timeframe
+
 const Graph = () => {
+  // const [lastDay, setLastDady] = useState<[any] | undefined>();
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await fetch(
+  //       "http://vps-3e1c6811.vps.ovh.net:3000/last-24hrs"
+  //     );
+  //     const responseData = await response.json();
+  //     console.log(
+  //       responseData?.map((item: { percent: any }) => item.percent).join(" ")
+  //     );
+  //     setLastDady(responseData);
+  //   };
+  //   fetchData();
+  // }, []);
+
+  const [width, setWidth] = useState(400);
+
+  useLayoutEffect(() => {
+    function updateSize() {
+      setWidth(Math.min(window.innerWidth / 2, 400));
+    }
+    window.addEventListener("resize", updateSize);
+    updateSize();
+    return () => window.removeEventListener("resize", updateSize);
+  }, []);
+
   return (
-    <svg width="160" height="60">
-      <path
-        d="M0 45C5.145 45 9.555 20.4 14.7 20.4C19.845 20.4 24.255 35.400000000000006 29.4 35.400000000000006C34.544999999999995 35.400000000000006 38.955 6.600000000000001 44.099999999999994 6.600000000000001C49.245 6.600000000000001 53.654999999999994 22.200000000000003 58.8 22.200000000000003C63.945 22.200000000000003 68.355 45 73.5 45C78.645 45 83.05499999999999 33.6 88.19999999999999 33.6C93.34499999999998 33.6 97.755 52.8 102.89999999999999 52.8C108.04499999999999 52.8 112.455 38.400000000000006 117.6 38.400000000000006C122.74499999999999 38.400000000000006 127.15499999999999 54.6 132.29999999999998 54.6C137.445 54.6 141.855 27.6 147 27.6C147 27.6 147 27.6 147 27.6 "
+    <div
+      style={{
+        position: "relative",
+        display: "flex",
+        justifyContent: "flex-end",
+        width: "100%",
+      }}
+    >
+      <svg
+        style={{
+          backgroundColor: BackgroundColor(),
+          zIndex: 10,
+          float: "right",
+        }}
+        width={width}
+        height="100"
+        viewBox={`0 0 ${width} 100`}
         fill="none"
-        fill-opacity="1"
-        stroke="currentColor"
-        stroke-opacity="1"
-        stroke-linecap="butt"
-        stroke-width="2"
-        stroke-dasharray="0"
-      ></path>
-    </svg>
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d={`M ${fakeData
+            ?.map(
+              (item, i) =>
+                `${i * (width / readingsPerDay)} ${item.percent * -1.8 + 135}`
+            )
+            .join(" ")}`}
+          stroke={TextColor()}
+          stroke-width="2"
+          stroke-linejoin="bevel"
+        />
+      </svg>
+    </div>
   );
 };
 

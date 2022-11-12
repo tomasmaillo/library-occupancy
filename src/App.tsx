@@ -11,6 +11,8 @@ import Carousel from "./Carousel";
 import Gap from "./Gap";
 import LoadingAnimation from "./LoadingAnimation";
 import Bar from "./Bar";
+import Day from "./Day";
+import TimeAxis from "./TimeAxis";
 
 const Main = styled.div`
   font-size: 5rem;
@@ -45,8 +47,14 @@ const App = () => {
         <Header />
         <Bar />
       </Main>
-      <Carousel />
-      <Main>
+
+      <TimeAxis />
+
+      <Day />
+
+      {/* <Carousel /> */}
+      {/* <Main>
+        <Row></Row>
         <Row>
           <div className="css-1d590da">
             <div className="css-1p22ljb">
@@ -55,7 +63,7 @@ const App = () => {
           </div>
           <Graph />
         </Row>
-      </Main>
+      </Main> */}
     </Background>
   );
 };
