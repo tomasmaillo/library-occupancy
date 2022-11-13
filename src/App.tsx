@@ -1,13 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "./Header";
-import { BackgroundColor, TextColor } from "./colors";
-import Graph from "./24Graph";
+import { BackgroundColor, Bin, TextColor } from "./colors";
 import {
   LibraryDataContextProvider,
   useLibraryData,
 } from "./LibraryData/LibraryDataContext";
-import Carousel from "./Carousel";
 import Gap from "./Gap";
 import LoadingAnimation from "./LoadingAnimation";
 import Bar from "./Bar";
@@ -40,7 +38,10 @@ const App = () => {
 
   if (!data) return <LoadingAnimation />;
 
+  // TODO: Move this elsewhere
   document.body.style.backgroundColor = BackgroundColor();
+  const favicon = document.getElementById("favicon") as HTMLLinkElement;
+  if (favicon !== null) favicon.href = `${Bin()}.ico`;
 
   return (
     <Background>

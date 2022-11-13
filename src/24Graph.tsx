@@ -683,7 +683,7 @@ const Graph = () => {
     >
       <svg
         style={{
-          transition: "0.5s",
+          transition: "background 0.5s",
           backgroundColor: BackgroundColor(),
           zIndex: 10,
           float: "right",

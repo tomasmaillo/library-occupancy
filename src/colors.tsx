@@ -21,7 +21,7 @@ const colorVariations: Color[] = [
   {
     max: 60,
     text: "yellow",
-    background: "#3a0b5d",
+    background: "#2c3e2f",
   },
   {
     max: 70,
@@ -54,4 +54,13 @@ export const TextColor = () => {
 
   const color = colorVariations.find((color) => data?.percentage < color.max);
   return color?.text || defaultColors.text;
+};
+
+// Returns the max percentage of the bin that is currently selected
+export const Bin = () => {
+  const { data } = useLibraryData();
+  if (!data?.percentage) return 0;
+
+  const color = colorVariations.find((color) => data?.percentage < color.max);
+  return color?.max || 0;
 };
