@@ -13,6 +13,7 @@ const LineWrapper = styled.div`
 
 const Percentage = styled.div`
   font-size: 7rem;
+  line-height: 7.5rem;
 `;
 
 const LocationWrapper = styled.div`

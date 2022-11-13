@@ -23,9 +23,10 @@ const Detail = styled.div`
 `;
 
 const Row = styled.div`
-  display: grid;
+  /* TODO: change from flex to grid */
+  /* display: grid;
   grid-template-columns: 50% 50%;
-  grid-gap: 10px;
+  grid-gap: 10px; */
   margin: 0px;
   display: flex;
   flex-direction: row;
