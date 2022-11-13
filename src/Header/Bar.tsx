@@ -1,6 +1,6 @@
 import { useState, useLayoutEffect } from "react";
-import { TextColor } from "./colors";
-import { useLibraryData } from "./LibraryData/LibraryDataContext";
+import { TextColor } from "../common/colors";
+import { useLibraryData } from "../LibraryData/LibraryDataContext";
 
 const maxWidth = 400;
 

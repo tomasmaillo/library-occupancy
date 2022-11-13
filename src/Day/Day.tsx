@@ -1,13 +1,8 @@
 import styled from "styled-components";
 import Graph from "./24Graph";
-import { TextColor } from "./colors";
-
-const Main = styled.div`
-  font-size: 5rem;
-  padding: 8px;
-  margin: auto;
-  max-width: 760px;
-`;
+import { TextColor } from "../common/colors";
+import Main from "../common/Main";
+import AnimatedTitle from "../common/AnimatedText";
 
 const Date = styled.div`
   font-size: 2rem;
@@ -57,7 +52,9 @@ const Day = () => {
       <Main>
         <Row>
           <div style={{ height: 100, zIndex: 100 }}>
-            <Date>today,</Date>
+            <Date>
+              <AnimatedTitle text="today," />
+            </Date>
             <Detail>{"->"} Last 24hrs</Detail>
           </div>
           <Graph />

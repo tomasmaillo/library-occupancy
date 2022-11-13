@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useLibraryData } from "./LibraryData/LibraryDataContext";
+import React from "react";
+import { useLibraryData } from "../LibraryData/LibraryDataContext";
 
 type Color = {
   max: number;

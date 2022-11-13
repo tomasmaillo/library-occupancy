@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { TextColor } from "./colors";
+import { TextColor } from "../common/colors";
 
 const Core = styled.circle`
   fill: ${() => TextColor};

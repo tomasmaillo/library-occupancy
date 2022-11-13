@@ -1,23 +1,15 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import Header from "./Header";
-import { BackgroundColor, Bin, TextColor } from "./colors";
+
+import { BackgroundColor, Bin, TextColor } from "./common/colors";
 import {
   LibraryDataContextProvider,
   useLibraryData,
 } from "./LibraryData/LibraryDataContext";
-import Gap from "./Gap";
-import LoadingAnimation from "./LoadingAnimation";
-import Bar from "./Bar";
-import Day from "./Day";
 import TimeAxis from "./TimeAxis";
-
-const Main = styled.div`
-  font-size: 5rem;
-  padding: 8px;
-  margin: auto;
-  max-width: 760px;
-`;
+import { Loading } from "./Loading";
+import { Header } from "./Header";
+import { Day } from "./Day";
 
 const Background = styled.div`
   color: ${TextColor};
@@ -26,17 +18,9 @@ const Background = styled.div`
   height: 100vh;
 `;
 
-const Row = styled.div`
-  margin: 0px;
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-`;
-
-const App = () => {
+const Page = () => {
   const { data } = useLibraryData();
-
-  if (!data) return <LoadingAnimation />;
+  if (!data) return <Loading />;
 
   // TODO: Move this elsewhere
   document.body.style.backgroundColor = BackgroundColor();
@@ -45,38 +29,17 @@ const App = () => {
 
   return (
     <Background>
-      <Gap height="7vh" />
-      <Main>
-        <Header />
-        <Bar />
-      </Main>
-
+      <Header />
       <TimeAxis />
-
       <Day />
-
-      {/* <Carousel /> */}
-      {/* <Main>
-        <Row></Row>
-        <Row>
-          <div className="css-1d590da">
-            <div className="css-1p22ljb">
-              {2300 * ((data?.percentage as any) / 100)}
-            </div>
-          </div>
-          <Graph />
-        </Row>
-      </Main> */}
     </Background>
   );
 };
 
-const Page = () => {
-  return (
-    <LibraryDataContextProvider>
-      <App />
-    </LibraryDataContextProvider>
-  );
-};
+const App = () => (
+  <LibraryDataContextProvider>
+    <Page />
+  </LibraryDataContextProvider>
+);
 
-export default Page;
+export default App;

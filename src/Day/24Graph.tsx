@@ -1,6 +1,6 @@
 import { useState, useEffect, useLayoutEffect } from "react";
-import { BackgroundColor, TextColor } from "./colors";
-import { LibraryDataInterface } from "./LibraryData/libraryDataTypes";
+import { BackgroundColor, TextColor } from "../common/colors";
+import { LibraryDataInterface } from "../LibraryData/libraryDataTypes";
 
 // fake data as historical data is not available *yet*
 const fakeData = [
