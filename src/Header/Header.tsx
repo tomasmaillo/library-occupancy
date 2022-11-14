@@ -22,6 +22,7 @@ const Percentage = styled.div`
 const LocationWrapper = styled.div`
   font-size: 1rem;
   margin: 0;
+  color: white;
   transform: translateY(0.6rem);
   font-style: bold;
 `;
