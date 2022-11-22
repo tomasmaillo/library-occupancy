@@ -43,7 +43,7 @@ const HeaderWrapper = styled.div`
 `;
 
 const Header = () => {
-  const { data } = useLibraryData();
+  const { currentData } = useLibraryData();
 
   return (
     <Main>
@@ -52,10 +52,12 @@ const Header = () => {
         <LocationWrapper>Main Library</LocationWrapper>
         <LineWrapper>
           <Percentage>
-            <AnimatedText text={`${data?.percentage}%`} />
+            <AnimatedText
+              text={`${currentData?.lastMeasurement.percentage}%`}
+            />
           </Percentage>
 
-          <Live title={`Last updated at ${data?.time}`}>
+          <Live title={`Last updated at ${currentData?.lastMeasurement.time}`}>
             live
             <div style={{ transform: "translate(-34px, -36px)" }}>
               <Pulse />

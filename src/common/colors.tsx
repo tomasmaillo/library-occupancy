@@ -41,26 +41,34 @@ const colorVariations: Color[] = [
 ];
 
 export const BackgroundColor = () => {
-  const { data } = useLibraryData();
-  if (!data?.percentage) return defaultColors.background;
+  const { currentData } = useLibraryData();
+  if (!currentData?.lastMeasurement.percentage) return defaultColors.background;
 
-  const color = colorVariations.find((color) => data.percentage < color.max);
+  const color = colorVariations.find(
+    (color) => currentData?.lastMeasurement.percentage < color.max
+  );
   return color?.background || defaultColors.background;
 };
 
 export const TextColor = () => {
-  const { data } = useLibraryData();
-  if (!data?.percentage) return defaultColors.text;
+  const { currentData } = useLibraryData();
+  if (!currentData?.lastMeasurement.percentage) return defaultColors.text;
 
-  const color = colorVariations.find((color) => data?.percentage < color.max);
+  const color = colorVariations.find(
+    (color) => currentData?.lastMeasurement.percentage < color.max
+  );
   return color?.text || defaultColors.text;
 };
 
+export const PredictionColor = () => "#9f9f9f";
+
 // Returns the max percentage of the bin that is currently selected
 export const Bin = () => {
-  const { data } = useLibraryData();
-  if (!data?.percentage) return 0;
+  const { currentData } = useLibraryData();
+  if (!currentData?.lastMeasurement.percentage) return 0;
 
-  const color = colorVariations.find((color) => data?.percentage < color.max);
+  const color = colorVariations.find(
+    (color) => currentData?.lastMeasurement.percentage < color.max
+  );
   return color?.max || 0;
 };

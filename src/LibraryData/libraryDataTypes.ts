@@ -1,9 +1,15 @@
-export interface LibraryDataInterface{
+export interface LibraryMeasurementInterface{
+  date: string;
   time: string;
   percentage: number;
-} 
+}
+
+export interface LibraryDataInterface{
+  lastMeasurement: LibraryMeasurementInterface;
+  lastDay: LibraryMeasurementInterface[];
+}
 
 export interface LibraryDataContextInterface {
-  data?: LibraryDataInterface;
-  setData: (data: any) => void;
+  currentData?: LibraryDataInterface;
+  setCurrentData: (data: any) => void;
 }

@@ -1,8 +1,11 @@
 import styled from "styled-components";
-import Graph from "./24Graph";
-import { TextColor } from "../common/colors";
+import Graph from "./Graph/Graph";
+import { PredictionColor, TextColor } from "../common/colors";
 import Main from "../common/Main";
 import AnimatedTitle from "../common/AnimatedText";
+import { FC } from "react";
+import { LibraryMeasurementInterface } from "../LibraryData/libraryDataTypes";
+import PageWideAxis from "./PageWideAxis";
 
 const Date = styled.div`
   font-size: 2rem;
@@ -28,36 +31,38 @@ const Row = styled.div`
   align-items: center;
 `;
 
-const Day = () => {
+interface DayProps {
+  date: string;
+  details: string[];
+  data: {
+    actual?: LibraryMeasurementInterface[];
+    predicted?: LibraryMeasurementInterface[];
+  };
+}
+const Day: FC<DayProps> = ({
+  date,
+  details,
+  data: { actual = [], predicted = [] },
+}) => {
   return (
     <div style={{ position: "relative", marginBottom: 25 }}>
-      <svg
-        style={{
-          position: "absolute",
-          transform: "translateY(8px)",
-        }}
-        width="100000"
-        height="100"
-        viewBox="0 0 100000 100"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d={`M 0 100 100000 100 Z`}
-          stroke={TextColor()}
-          stroke-width="3"
-          stroke-linejoin="bevel"
-        />
-      </svg>
+      <PageWideAxis
+        leftStrokeColor={actual.length > 0 ? TextColor() : PredictionColor()}
+        rightStrokeColor={actual.length > 100 ? TextColor() : PredictionColor()}
+      />
       <Main>
         <Row>
           <div style={{ height: 100, zIndex: 100 }}>
             <Date>
-              <AnimatedTitle text="today," />
+              <AnimatedTitle text={date} />
             </Date>
-            <Detail>{"->"} Last 24hrs</Detail>
+            {details.map((detail) => (
+              <Detail>
+                {"->"} {detail}
+              </Detail>
+            ))}
           </div>
-          <Graph />
+          <Graph actual={actual} predicted={predicted} />
         </Row>
       </Main>
     </div>

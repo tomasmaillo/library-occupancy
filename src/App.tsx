@@ -10,6 +10,7 @@ import TimeAxis from "./TimeAxis";
 import { Loading } from "./Loading";
 import { Header } from "./Header";
 import { Day } from "./Day";
+import { fakeData } from "./common/fakeData";
 
 const Background = styled.div`
   color: ${TextColor};
@@ -19,8 +20,8 @@ const Background = styled.div`
 `;
 
 const Page = () => {
-  const { data } = useLibraryData();
-  if (!data) return <Loading />;
+  const { currentData } = useLibraryData();
+  if (!currentData?.lastMeasurement.percentage) return <Loading />;
 
   // TODO: Move this elsewhere
   document.body.style.backgroundColor = BackgroundColor();
@@ -33,7 +34,21 @@ const Page = () => {
     <Background>
       <Header />
       <TimeAxis />
-      <Day />
+      <Day
+        date="today,"
+        details={["helluuu", "what is up"]}
+        data={{
+          actual: currentData.lastDay,
+          predicted: fakeData,
+        }}
+      />
+      <Day
+        date="tomorrow,"
+        details={["helluuu"]}
+        data={{
+          predicted: fakeData,
+        }}
+      />
     </Background>
   );
 };

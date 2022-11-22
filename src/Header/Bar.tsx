@@ -5,7 +5,7 @@ import { useLibraryData } from "../LibraryData/LibraryDataContext";
 const maxWidth = 400;
 
 const Bar = () => {
-  const { data } = useLibraryData();
+  const { currentData } = useLibraryData();
   const [width, setWidth] = useState(maxWidth);
 
   const getTotalNumberOfLines = () => Math.floor(width / 10);
@@ -22,7 +22,7 @@ const Bar = () => {
     return () => window.removeEventListener("resize", updateSize);
   }, []);
 
-  if (!data) return null;
+  if (!currentData) return null;
 
   return (
     <div style={{ position: "relative", height: "25px" }}>
@@ -39,7 +39,9 @@ const Bar = () => {
             x2={i * getLineSpacing() + 10}
             y2="0"
             stroke={
-              data.percentage * (getTotalNumberOfLines() / 100) < i
+              currentData?.lastMeasurement.percentage *
+                (getTotalNumberOfLines() / 100) <
+              i
                 ? "white"
                 : TextColor()
             }
