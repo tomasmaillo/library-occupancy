@@ -9,6 +9,16 @@ const defaultLibraryData: LibraryDataContextInterface = {
   setCurrentData: () => {},
 };
 
+// parsed == yyyymmdd
+const getTodaysParsedDate = () => {
+  const today = new Date();
+  const dd = String(today.getDate()).padStart(2, "0");
+  const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+  const yyyy = today.getFullYear();
+
+  return yyyy + mm + dd;
+};
+
 // using official API
 const getLastMeasurement = async ({
   URL = "https://lac-edwebtools.is.ed.ac.uk/discovered/occupy/MainLibrary.json",
@@ -35,7 +45,7 @@ const getLastMeasurement = async ({
 };
 
 const getLastDayMeasurements = async ({
-  URL = "http://vps-3e1c6811.vps.ovh.net:3000/last-24hrs",
+  URL = `https://server.tomasmaillo.com/day/${getTodaysParsedDate()}`,
 }: {
   URL?: string;
 }) => {
@@ -44,7 +54,7 @@ const getLastDayMeasurements = async ({
   const response = await fetch(URL);
   const responseData = await response.json();
 
-  responseData.forEach((measurement: any) => {
+  responseData.data.forEach((measurement: any) => {
     measurements.push({
       date: measurement.date,
       time: measurement.time,
