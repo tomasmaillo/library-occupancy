@@ -9,9 +9,13 @@ const TimeAxis = () => {
   const [width, setWidth] = useState(maxWidth);
 
   useLayoutEffect(() => {
-    function updateSize() {
-      setWidth(Math.min(window.innerWidth / 2, maxWidth));
-    }
+    const updateSize = () => {
+      if (window.innerWidth < 760) {
+        setWidth(window.innerWidth);
+      } else {
+        setWidth(Math.min(window.innerWidth / 2, maxWidth));
+      }
+    };
     window.addEventListener("resize", updateSize);
     updateSize();
     return () => window.removeEventListener("resize", updateSize);

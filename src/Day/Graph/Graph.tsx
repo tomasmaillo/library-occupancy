@@ -14,12 +14,9 @@ const readingsPerDay = 158; // TODO: will have to be a calculated from the selec
 const filterInterestingHours = (
   measurements: LibraryMeasurementInterface[]
 ) => {
-  const filteredMeasurements = [] as LibraryMeasurementInterface[];
-  measurements.forEach((measurement) => {
+  const filteredMeasurements = measurements.filter((measurement) => {
     const hour = parseInt(measurement.time.split(":")[0]);
-    if (INTERESTING_HOURS.includes(hour)) {
-      filteredMeasurements.push(measurement);
-    }
+    return INTERESTING_HOURS.includes(hour);
   });
   return filteredMeasurements;
 };
@@ -29,19 +26,20 @@ interface GraphProps {
   predicted: LibraryMeasurementInterface[];
 }
 const Graph: FC<GraphProps> = (props) => {
-  const [actual] = useState<LibraryMeasurementInterface[]>(
-    filterInterestingHours(props.actual)
-  );
-  const [predicted] = useState<LibraryMeasurementInterface[]>(
-    filterInterestingHours(props.predicted)
-  );
+  const { actual, predicted } = props;
+  const filteredActual = filterInterestingHours(actual);
+  const filteredPredicted = filterInterestingHours(predicted);
 
   const [width, setWidth] = useState(400);
 
   useLayoutEffect(() => {
-    function updateSize() {
-      setWidth(Math.min(window.innerWidth / 2, 400));
-    }
+    const updateSize = () => {
+      if (window.innerWidth < 760) {
+        setWidth(window.innerWidth);
+      } else {
+        setWidth(Math.min(window.innerWidth / 2, 400));
+      }
+    };
     window.addEventListener("resize", updateSize);
     updateSize();
     return () => window.removeEventListener("resize", updateSize);
@@ -50,11 +48,11 @@ const Graph: FC<GraphProps> = (props) => {
   return (
     <div
       style={{
-        top: "0.5px",
         position: "relative",
         display: "flex",
         justifyContent: "flex-end",
         width: "100%",
+        height: 100,
       }}
     >
       <style>
@@ -73,9 +71,11 @@ const Graph: FC<GraphProps> = (props) => {
           backgroundColor: BackgroundColor(),
           zIndex: 10,
           float: "right",
+          position: "absolute",
+          bottom: 0,
         }}
         width={width}
-        height="100"
+        height="125"
         viewBox={`0 0 ${width} 100`}
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -95,21 +95,21 @@ const Graph: FC<GraphProps> = (props) => {
 
         <Line
           color={PredictionColor()}
-          data={predicted}
+          data={filteredPredicted}
           readingSpacing={width / readingsPerDay}
           yScaling={1.5}
         />
 
         <Line
           color={TextColor()}
-          data={actual}
+          data={filteredActual}
           readingSpacing={width / readingsPerDay}
           yScaling={1.5}
         />
 
-        {actual.map((item, index) => {
+        {filteredActual.map((item, index) => {
           if (index % 4 !== 0) return;
-          const x = (index * width) / actual.length;
+          const x = (index * width) / filteredActual.length;
           const y = -item.percentage * 1.8 + 135;
           return (
             <text>

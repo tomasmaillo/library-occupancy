@@ -9,10 +9,18 @@ const defaultLibraryData: LibraryDataContextInterface = {
   setCurrentData: () => {},
 };
 
-// parsed == yyyymmdd
+// TODO: Replace this for more generic implementation
 const getTodaysParsedDate = () => {
   const today = new Date();
   const dd = String(today.getDate()).padStart(2, "0");
+  const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+  const yyyy = today.getFullYear();
+
+  return yyyy + mm + dd;
+};
+const getYesterdaysParsedDate = () => {
+  const today = new Date();
+  const dd = String(today.getDate() - 1).padStart(2, "0");
   const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
   const yyyy = today.getFullYear();
 
@@ -44,24 +52,23 @@ const getLastMeasurement = async ({
   } as LibraryMeasurementInterface;
 };
 
-const getLastDayMeasurements = async ({
-  URL = `https://server.tomasmaillo.com/day/${getTodaysParsedDate()}`,
+const getDay = async ({
+  parsedDate,
+  URL = `https://server.tomasmaillo.com/day`,
 }: {
+  parsedDate: string;
   URL?: string;
 }) => {
-  let measurements = [] as LibraryMeasurementInterface[];
+  const response = await fetch(`${URL}/${parsedDate}`);
+  const parsedResponse = await response.json();
 
-  const response = await fetch(URL);
-  const responseData = await response.json();
-
-  responseData.data.forEach((measurement: any) => {
-    measurements.push({
+  const measurements = parsedResponse.data.map((measurement: any) => {
+    return {
       date: measurement.date,
       time: measurement.time,
-      percentage: measurement.percent,
-    });
-  });
-
+      percentage: measurement.percent, // TODO: Merge "percent" and "percentage"
+    };
+  }) as LibraryMeasurementInterface[];
   return measurements;
 };
 
@@ -74,20 +81,19 @@ export const LibraryDataContextProvider = ({ children }: any) => {
   >(defaultLibraryData.currentData);
 
   useEffect(() => {
-    // const fetchAndStoreData = async () => {
-    //   setData({
-    //     time: "10/20",
-    //     percentage: Math.floor(Math.random() * 100),
-    //   });
-    // };
-
     const updateData = async () => {
       const lastMeasurement = await getLastMeasurement({});
-      const lastDayMeasurements = await getLastDayMeasurements({});
+      const todayData = await getDay({
+        parsedDate: getTodaysParsedDate(),
+      });
+      const yesterdayData = await getDay({
+        parsedDate: getYesterdaysParsedDate(),
+      });
 
       setCurrentData({
         lastMeasurement: lastMeasurement,
-        lastDay: lastDayMeasurements,
+        today: todayData,
+        yesterday: yesterdayData,
       });
     };
 

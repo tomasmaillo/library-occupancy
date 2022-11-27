@@ -35,18 +35,25 @@ const Page = () => {
       <Header />
       <TimeAxis />
       <Day
-        date="today,"
-        details={["helluuu", "what is up"]}
+        date="yesterday,"
+        details={[":(((("]}
         data={{
-          actual: currentData.lastDay,
-          predicted: fakeData,
+          actual: currentData.yesterday,
+        }}
+      />
+      <Day
+        date="today,"
+        details={["Today is a gift"]}
+        data={{
+          actual: currentData.today,
+          predicted: currentData.yesterday,
         }}
       />
       <Day
         date="tomorrow,"
         details={["helluuu"]}
         data={{
-          predicted: fakeData,
+          predicted: currentData.today,
         }}
       />
     </Background>

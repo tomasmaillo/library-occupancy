@@ -13,7 +13,7 @@ const Line = (props: {
       d={`M ${data
         ?.map(
           (item, i) =>
-            `${i * readingSpacing} ${item.percentage * -1 * yScaling + 130}`
+            `${i * readingSpacing} ${item.percentage * -1.3 * yScaling + 150}`
         )
         .join(" ")}`}
       stroke={color}

@@ -7,25 +7,25 @@ const PageWideAxis = (props: {
     <svg
       style={{
         position: "absolute",
-        transform: "translateY(8px)",
+        transform: "translateY(-12px)",
       }}
       width="100000"
-      height="100"
-      viewBox="0 0 100000 100"
+      height="5"
+      viewBox="0 0 100000 5"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d={`M 0 100 100000 100 Z`}
+        d={`M 0 2.5 100000 2.5 Z`}
         stroke={leftStrokeColor}
-        stroke-width="3"
+        stroke-width="2"
         stroke-linejoin="bevel"
       />
 
       <path
-        d={`M 0 100 100000 100 Z`}
+        d={`M 0 2.5 100000 2.5 Z`}
         stroke={rightStrokeColor}
-        stroke-width="3"
+        stroke-width="2"
         stroke-linejoin="bevel"
       />
     </svg>

@@ -1,12 +1,13 @@
-export interface LibraryMeasurementInterface{
+export interface LibraryMeasurementInterface {
   date: string;
   time: string;
   percentage: number;
 }
 
-export interface LibraryDataInterface{
+export interface LibraryDataInterface {
   lastMeasurement: LibraryMeasurementInterface;
-  lastDay: LibraryMeasurementInterface[];
+  today: LibraryMeasurementInterface[];
+  yesterday: LibraryMeasurementInterface[];
 }
 
 export interface LibraryDataContextInterface {

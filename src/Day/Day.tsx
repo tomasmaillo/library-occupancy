@@ -28,7 +28,10 @@ const Row = styled.div`
   margin: 0px;
   display: flex;
   flex-direction: row;
-  align-items: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 interface DayProps {
@@ -46,10 +49,6 @@ const Day: FC<DayProps> = ({
 }) => {
   return (
     <div style={{ position: "relative", marginBottom: 25 }}>
-      <PageWideAxis
-        leftStrokeColor={actual.length > 0 ? TextColor() : PredictionColor()}
-        rightStrokeColor={actual.length > 100 ? TextColor() : PredictionColor()}
-      />
       <Main>
         <Row>
           <div style={{ height: 100, zIndex: 100 }}>
@@ -65,6 +64,10 @@ const Day: FC<DayProps> = ({
           <Graph actual={actual} predicted={predicted} />
         </Row>
       </Main>
+      <PageWideAxis
+        leftStrokeColor={actual.length > 0 ? TextColor() : PredictionColor()}
+        rightStrokeColor={actual.length > 100 ? TextColor() : PredictionColor()}
+      />
     </div>
   );
 };
