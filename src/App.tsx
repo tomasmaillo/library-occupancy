@@ -11,6 +11,8 @@ import { Loading } from "./Loading";
 import { Header } from "./Header";
 import { Day } from "./Day";
 import { fakeData } from "./common/fakeData";
+import { AnimatePresence, motion } from "framer-motion";
+import { isVisible } from "@testing-library/user-event/dist/utils";
 
 const Background = styled.div`
   color: ${TextColor};
@@ -18,6 +20,21 @@ const Background = styled.div`
   transition: 0.5s;
   height: 100vh;
 `;
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, left: -90 },
+  show: { opacity: 1, left: 0 },
+};
 
 const Page = () => {
   const { currentData } = useLibraryData();
@@ -34,28 +51,64 @@ const Page = () => {
     <Background>
       <Header />
       <TimeAxis />
-      <Day
-        date="yesterday,"
-        details={[":(((("]}
-        data={{
-          actual: currentData.yesterday,
-        }}
-      />
-      <Day
-        date="today,"
-        details={["Today is a gift"]}
-        data={{
-          actual: currentData.today,
-          predicted: currentData.yesterday,
-        }}
-      />
-      <Day
-        date="tomorrow,"
-        details={["helluuu"]}
-        data={{
-          predicted: currentData.today,
-        }}
-      />
+
+      <AnimatePresence>
+        {/* TODO: replace by .map */}
+        <motion.div variants={container} initial="hidden" animate="show">
+          <motion.div
+            style={{
+              opacity: 1,
+              position: "relative",
+              top: -15,
+            }}
+            variants={item}
+            initial={{ opacity: 0, left: -90 }}
+            animate={{ opacity: 1, left: 0 }}
+            exit={{ opacity: 0, transition: { duration: 0.5 } }}
+          >
+            <Day
+              date="yesterday,"
+              details={["the past 24 hours"]}
+              data={{
+                actual: currentData.yesterday,
+              }}
+            />
+          </motion.div>
+          <motion.div
+            style={{
+              opacity: 1,
+              position: "relative",
+              top: -15,
+            }}
+            variants={item}
+          >
+            <Day
+              date="today,"
+              details={["using yesterday's data"]}
+              data={{
+                actual: currentData.today,
+                predicted: currentData.yesterday,
+              }}
+            />
+          </motion.div>
+          <motion.div
+            style={{
+              opacity: 1,
+              position: "relative",
+              top: -15,
+            }}
+            variants={item}
+          >
+            <Day
+              date="tomorrow,"
+              details={["prediction with today"]}
+              data={{
+                predicted: currentData.today,
+              }}
+            />
+          </motion.div>
+        </motion.div>
+      </AnimatePresence>
     </Background>
   );
 };

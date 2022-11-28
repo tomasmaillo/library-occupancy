@@ -48,13 +48,11 @@ const Day: FC<DayProps> = ({
   data: { actual = [], predicted = [] },
 }) => {
   return (
-    <div style={{ position: "relative", marginBottom: 25 }}>
+    <div style={{ position: "relative", marginBottom: 50 }}>
       <Main>
         <Row>
           <div style={{ height: 100, zIndex: 100 }}>
-            <Date>
-              <AnimatedTitle text={date} />
-            </Date>
+            <Date>{date}</Date>
             {details.map((detail) => (
               <Detail>
                 {"->"} {detail}

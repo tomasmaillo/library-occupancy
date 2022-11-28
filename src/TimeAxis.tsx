@@ -34,7 +34,7 @@ const TimeAxis = () => {
         style={{
           position: "absolute",
           float: "right",
-          top: -20,
+          top: -30,
         }}
         width={width}
         height={height}

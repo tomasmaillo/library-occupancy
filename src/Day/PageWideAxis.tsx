@@ -18,14 +18,14 @@ const PageWideAxis = (props: {
       <path
         d={`M 0 2.5 100000 2.5 Z`}
         stroke={leftStrokeColor}
-        stroke-width="2"
+        stroke-width="3"
         stroke-linejoin="bevel"
       />
 
       <path
         d={`M 0 2.5 100000 2.5 Z`}
         stroke={rightStrokeColor}
-        stroke-width="2"
+        stroke-width="3"
         stroke-linejoin="bevel"
       />
     </svg>

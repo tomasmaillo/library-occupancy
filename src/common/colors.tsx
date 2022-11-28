@@ -12,7 +12,22 @@ const defaultColors = {
   background: "white",
 };
 
-const colorVariations: Color[] = [
+export const colorVariations: Color[] = [
+  {
+    max: 20,
+    text: "white",
+    background: "#1522b8",
+  },
+  {
+    max: 30,
+    text: "springgreen",
+    background: "#1522b8",
+  },
+  {
+    max: 40,
+    text: "springgreen",
+    background: "#1522b8",
+  },
   {
     max: 50,
     text: "springgreen",
@@ -34,7 +49,12 @@ const colorVariations: Color[] = [
     background: "#250312",
   },
   {
-    max: 100,
+    max: 90,
+    text: "red",
+    background: "#090607",
+  },
+  {
+    max: 500,
     text: "red",
     background: "#090607",
   },

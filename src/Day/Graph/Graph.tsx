@@ -7,9 +7,8 @@ import {
 import { LibraryMeasurementInterface } from "../../LibraryData/libraryDataTypes";
 import Line from "./Line";
 
-import { INTERESTING_HOURS } from "../../common/constants";
-
-const readingsPerDay = 158; // TODO: will have to be a calculated from the selected timeframe
+import { INTERESTING_HOURS, NUM_PLOTS_PER_DAY } from "../../common/constants";
+import PercentageAxis from "./PercentageAxis";
 
 const filterInterestingHours = (
   measurements: LibraryMeasurementInterface[]
@@ -21,6 +20,8 @@ const filterInterestingHours = (
   return filteredMeasurements;
 };
 
+const GRAPH_HEIGHT = 155;
+
 interface GraphProps {
   actual: LibraryMeasurementInterface[];
   predicted: LibraryMeasurementInterface[];
@@ -31,6 +32,7 @@ const Graph: FC<GraphProps> = (props) => {
   const filteredPredicted = filterInterestingHours(predicted);
 
   const [width, setWidth] = useState(400);
+  const Y_SCALING = 1.8;
 
   useLayoutEffect(() => {
     const updateSize = () => {
@@ -52,7 +54,7 @@ const Graph: FC<GraphProps> = (props) => {
         display: "flex",
         justifyContent: "flex-end",
         width: "100%",
-        height: 100,
+        height: 100, // different from graphHeight so that overlap with text over high values is possible
       }}
     >
       <style>
@@ -75,57 +77,103 @@ const Graph: FC<GraphProps> = (props) => {
           bottom: 0,
         }}
         width={width}
-        height="125"
+        height={GRAPH_HEIGHT}
         viewBox={`0 0 ${width} 100`}
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <style>
           {`
-            tspan{
-              transition:0.3s;
-              pointer-events:all;
-              opacity:0;
+            g {
+              pointer-events: bounding-box;
+              transition: 0.25s;
+              opacity: 0.8;
             }
-            tspan:hover{
+            g:hover {
+              opacity: 1;
+            }
+            .reading{
+              transition:0.3s;
+              pointer-events: bounding-box;
+              opacity:0;
+              border-radius: 50%;
+            }
+            .reading:hover{
               opacity:1;
             }
           `}
         </style>
 
+        <PercentageAxis
+          graphWidth={width}
+          graphHeight={GRAPH_HEIGHT}
+          yScaling={Y_SCALING}
+        />
+
         <Line
           color={PredictionColor()}
           data={filteredPredicted}
-          readingSpacing={width / readingsPerDay}
-          yScaling={1.5}
+          readingSpacing={width / NUM_PLOTS_PER_DAY}
+          yScaling={Y_SCALING}
+          graphHeight={GRAPH_HEIGHT}
         />
 
         <Line
           color={TextColor()}
           data={filteredActual}
-          readingSpacing={width / readingsPerDay}
-          yScaling={1.5}
+          readingSpacing={width / NUM_PLOTS_PER_DAY}
+          yScaling={Y_SCALING}
+          graphHeight={GRAPH_HEIGHT}
         />
 
+        {/* TODO: Move this plz :D */}
         {filteredActual.map((item, index) => {
-          if (index % 4 !== 0) return;
-          const x = (index * width) / filteredActual.length;
-          const y = -item.percentage * 1.8 + 135;
+          if (index % 6 !== 0) return;
+          const x = index * (width / NUM_PLOTS_PER_DAY);
+          const y =
+            GRAPH_HEIGHT - item.percentage * Y_SCALING + 30 * Y_SCALING - 65;
+
           return (
-            <text>
-              <tspan
-                x={x}
-                y={y}
-                style={{
-                  fontSize: "1.5rem",
-                  fill: "white",
-                  textAnchor: "middle",
-                  dominantBaseline: "middle",
-                }}
-              >
-                {item.percentage}%
-              </tspan>
-            </text>
+            <g className="reading">
+              <line
+                x1={x}
+                y1={y + 10}
+                x2={x}
+                y2={y + 1000}
+                stroke={TextColor()}
+                strokeWidth={0.5}
+              />
+
+              <text>
+                <tspan
+                  x={x}
+                  y={y - 5}
+                  style={{
+                    fontSize: "0.7rem",
+                    fill: "white",
+                    textAnchor: "middle",
+                    dominantBaseline: "middle",
+                    background: "red",
+                  }}
+                >
+                  {item.percentage}%
+                </tspan>
+
+                <tspan
+                  x={x}
+                  y={y + 5}
+                  style={{
+                    fontSize: "0.7rem",
+                    fill: "white",
+                    textAnchor: "middle",
+                    dominantBaseline: "middle",
+                    background: "red",
+                  }}
+                >
+                  {item.time}
+                </tspan>
+              </text>
+            </g>
           );
         })}
       </svg>

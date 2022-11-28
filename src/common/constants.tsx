@@ -96,6 +96,8 @@ const MONTHS_SHORT = [
   "Dec",
 ];
 
+const NUM_PLOTS_PER_DAY = INTERESTING_HOURS.length * (60 / 5);
+
 export {
   HOURS,
   INTERESTING_HOURS,
@@ -104,4 +106,5 @@ export {
   DAYS_SHORT,
   MONTHS,
   MONTHS_SHORT,
+  NUM_PLOTS_PER_DAY,
 };

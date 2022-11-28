@@ -6,6 +6,7 @@ import Bar from "./Bar";
 import Pulse from "./Pulse";
 import Gap from "../common/Gap";
 import Main from "../common/Main";
+import { motion } from "framer-motion";
 
 const LineWrapper = styled.div`
   display: flex;
@@ -64,7 +65,15 @@ const Header = () => {
             </div>
           </Live>
         </LineWrapper>
-        <Bar />
+
+        {/* TODO: Better way of doing this plzz :D */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.15 }}
+        >
+          <Bar />
+        </motion.div>
       </HeaderWrapper>
     </Main>
   );
