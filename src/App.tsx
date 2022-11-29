@@ -103,7 +103,7 @@ const Page = () => {
               date="tomorrow,"
               details={["prediction with today"]}
               data={{
-                predicted: currentData.today,
+                predicted: currentData.yesterday,
               }}
             />
           </motion.div>

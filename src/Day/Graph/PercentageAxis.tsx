@@ -1,57 +1,47 @@
-import { useState, useEffect } from "react";
-import { colorVariations, TextColor } from "../../common/colors";
+import styled from "styled-components";
+import { colorVariations } from "../../common/colors";
+import getY from "./getY";
 
-const PercentageAxis = ({
-  graphWidth,
-  graphHeight,
-  yScaling,
-}: {
-  graphWidth: number;
-  graphHeight: number;
-  yScaling: number;
-}) => {
-  const [offset, setOffset] = useState(0);
+// used twice for a double hover effect :cool:
+const StyledPercentageAxis = styled.g`
+  pointer-events: bounding-box;
+  transition: 0.25s;
+  opacity: 0.8;
+  &:hover {
+    opacity: 1;
+  }
+`;
 
-  // TODO: Merge all calcYPosition functions into one (also in Line.tsx and Graph.tsx for labels)
-  useEffect(() => {
-    setOffset(20 * yScaling - 30);
-  }, [yScaling]);
-
-  const calcYPosition = (percentage: number) => {
-    return graphHeight - percentage * yScaling + offset;
-  };
-
+const PercentageAxis = ({ graphWidth }: { graphWidth: number }) => {
   return (
-    <g>
+    <StyledPercentageAxis>
       {colorVariations.map((color, index) => {
         if (index % 2 != 0) return;
+        const y = getY(color.max);
         return (
-          <g>
+          <StyledPercentageAxis>
             <line
               x1="0"
-              y1={calcYPosition(color.max)}
+              y1={y}
               x2="1000"
-              y2={calcYPosition(color.max)}
+              y2={y}
               stroke={color.text}
               strokeWidth="0.5"
               strokeDasharray="2 2"
             />
             <text
               x={graphWidth - 10}
-              y={calcYPosition(color.max) - 4}
-              style={{
-                fontSize: "0.5rem",
-                fill: color.text,
-                textAnchor: "middle",
-                dominantBaseline: "middle",
-              }}
+              y={y - 4}
+              fontSize="0.5rem"
+              fill={color.text}
+              textAnchor="middle"
             >
               {color.max}%
             </text>
-          </g>
+          </StyledPercentageAxis>
         );
       })}
-    </g>
+    </StyledPercentageAxis>
   );
 };
 

@@ -26,7 +26,7 @@ const HOURS = [
 ];
 
 const INTERESTING_HOURS = [
-  9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+  8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
 ];
 
 const DIGITAL_ANALOGUE_HOURS = {
@@ -96,7 +96,11 @@ const MONTHS_SHORT = [
   "Dec",
 ];
 
+// Graph constants
 const NUM_PLOTS_PER_DAY = INTERESTING_HOURS.length * (60 / 5);
+const GRAPH_HEIGHT = 155;
+const Y_SCALING = 1.8;
+const MAX_GRAPH_WIDTH = 400;
 
 export {
   HOURS,
@@ -107,4 +111,7 @@ export {
   MONTHS,
   MONTHS_SHORT,
   NUM_PLOTS_PER_DAY,
+  GRAPH_HEIGHT,
+  Y_SCALING,
+  MAX_GRAPH_WIDTH,
 };

@@ -1,19 +1,18 @@
 import { useLayoutEffect, useState } from "react";
-import { INTERESTING_HOURS } from "./common/constants";
+import { MAX_GRAPH_WIDTH, INTERESTING_HOURS } from "./common/constants";
 import Main from "./common/Main";
 
-const maxWidth = 400;
 const height = 1000;
 
 const TimeAxis = () => {
-  const [width, setWidth] = useState(maxWidth);
+  const [width, setWidth] = useState(MAX_GRAPH_WIDTH);
 
   useLayoutEffect(() => {
     const updateSize = () => {
       if (window.innerWidth < 760) {
         setWidth(window.innerWidth);
       } else {
-        setWidth(Math.min(window.innerWidth / 2, maxWidth));
+        setWidth(Math.min(window.innerWidth / 2, MAX_GRAPH_WIDTH));
       }
     };
     window.addEventListener("resize", updateSize);
@@ -46,7 +45,7 @@ const TimeAxis = () => {
           // Show every second hour
           if (i % 2 !== 0) return;
           // If width is small, show only odd axis labels
-          if (i % 4 != 0 && width < (3 * maxWidth) / 4) return;
+          if (i % 4 != 0 && width < (3 * MAX_GRAPH_WIDTH) / 4) return;
 
           return (
             <>
@@ -56,8 +55,8 @@ const TimeAxis = () => {
                 x2={(width / INTERESTING_HOURS.length) * i}
                 y2={height}
                 stroke="#D1D1D1"
-                stroke-opacity="0.32"
-                stroke-width="0.5"
+                strokeOpacity="0.32"
+                strokeWidth="0.5"
               />
               <text
                 x={(width / INTERESTING_HOURS.length) * i + 3}
