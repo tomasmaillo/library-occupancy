@@ -19,10 +19,11 @@ const getTodaysParsedDate = () => {
   return yyyy + mm + dd;
 };
 const getYesterdaysParsedDate = () => {
-  const today = new Date();
-  const dd = String(today.getDate() - 1).padStart(2, "0");
-  const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-  const yyyy = today.getFullYear();
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const dd = String(yesterday.getDate()).padStart(2, "0");
+  const mm = String(yesterday.getMonth() + 1).padStart(2, "0");
+  const yyyy = yesterday.getFullYear();
 
   return yyyy + mm + dd;
 };
@@ -86,6 +87,7 @@ export const LibraryDataContextProvider = ({ children }: any) => {
       const todayData = await getDay({
         parsedDate: getTodaysParsedDate(),
       });
+
       const yesterdayData = await getDay({
         parsedDate: getYesterdaysParsedDate(),
       });
