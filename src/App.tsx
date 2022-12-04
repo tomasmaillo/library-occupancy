@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { BackgroundColor, Bin, TextColor } from "./common/colors";
 import {
@@ -10,11 +11,9 @@ import TimeAxis from "./TimeAxis";
 import { Loading } from "./Loading";
 import { Header } from "./Header";
 import { Day } from "./Day";
-import { fakeData } from "./common/fakeData";
-import { AnimatePresence, motion } from "framer-motion";
-import { isVisible } from "@testing-library/user-event/dist/utils";
+import Background from "./Background/Background";
 
-const Background = styled.div`
+const BackgroundSolidColor = styled.div`
   color: ${TextColor};
   background-color: ${BackgroundColor};
   transition: 0.5s;
@@ -48,7 +47,8 @@ const Page = () => {
   if (theme !== null) theme.content = BackgroundColor();
 
   return (
-    <Background>
+    <BackgroundSolidColor>
+      <Background />
       <Header />
       <TimeAxis />
 
@@ -109,7 +109,7 @@ const Page = () => {
           </motion.div>
         </motion.div>
       </AnimatePresence>
-    </Background>
+    </BackgroundSolidColor>
   );
 };
 
