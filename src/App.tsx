@@ -11,7 +11,7 @@ import TimeAxis from "./TimeAxis";
 import { Loading } from "./Loading";
 import { Header } from "./Header";
 import { Day } from "./Day";
-import Background from "./Background/Background";
+import { Footer } from "./Footer";
 
 const BackgroundSolidColor = styled.div`
   color: ${TextColor};
@@ -48,7 +48,6 @@ const Page = () => {
 
   return (
     <BackgroundSolidColor>
-      <Background />
       <Header />
       <TimeAxis />
 
@@ -109,6 +108,7 @@ const Page = () => {
           </motion.div>
         </motion.div>
       </AnimatePresence>
+      <Footer />
     </BackgroundSolidColor>
   );
 };
