@@ -47,6 +47,7 @@ const Footer = () => {
     <div
       style={{
         position: "relative",
+        height: "20rem",
       }}
     >
       <FooterGradient>

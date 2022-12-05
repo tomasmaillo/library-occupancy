@@ -13,11 +13,11 @@ import { Header } from "./Header";
 import { Day } from "./Day";
 import { Footer } from "./Footer";
 
-const BackgroundSolidColor = styled.div`
+const BackgroundSolidColor = styled.main`
   color: ${TextColor};
   background-color: ${BackgroundColor};
   transition: 0.5s;
-  height: 100vh;
+  height: 100rem;
 `;
 
 const container = {
