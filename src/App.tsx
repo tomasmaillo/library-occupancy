@@ -61,29 +61,10 @@ const Page = () => {
               top: -15,
             }}
             variants={item}
-            initial={{ opacity: 0, left: -90 }}
-            animate={{ opacity: 1, left: 0 }}
-            exit={{ opacity: 0, transition: { duration: 0.5 } }}
-          >
-            <Day
-              date="yesterday,"
-              details={["the past 24 hours"]}
-              data={{
-                actual: currentData.yesterday,
-              }}
-            />
-          </motion.div>
-          <motion.div
-            style={{
-              opacity: 1,
-              position: "relative",
-              top: -15,
-            }}
-            variants={item}
           >
             <Day
               date="today,"
-              details={["using yesterday's data"]}
+              details={[`compared to this day last week`, "super packed"]}
               data={{
                 actual: currentData.today,
                 predicted: currentData.yesterday,
@@ -100,8 +81,25 @@ const Page = () => {
           >
             <Day
               date="tomorrow,"
-              details={["prediction with today"]}
+              details={["prediction with last week"]}
               data={{
+                predicted: currentData.yesterday,
+              }}
+            />
+          </motion.div>
+          <motion.div
+            style={{
+              opacity: 1,
+              position: "relative",
+              top: -15,
+            }}
+            variants={item}
+          >
+            <Day
+              date="sunday,"
+              details={["prediction with last week"]}
+              data={{
+                actual: [],
                 predicted: currentData.yesterday,
               }}
             />

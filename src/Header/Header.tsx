@@ -25,7 +25,7 @@ const LocationWrapper = styled.div`
   margin: 0;
   color: white;
   transform: translateY(0.6rem);
-  font-style: bold;
+  font-family: "Avenir Next";
 `;
 
 const Live = styled.div`
@@ -50,7 +50,9 @@ const Header = () => {
     <Main>
       <HeaderWrapper>
         <Gap height="7vh" />
-        <LocationWrapper>Main Library</LocationWrapper>
+        <LocationWrapper>
+          <b>Main Library</b>
+        </LocationWrapper>
         <LineWrapper>
           <Percentage>
             <AnimatedText

@@ -20,7 +20,7 @@ const getTodaysParsedDate = () => {
 };
 const getYesterdaysParsedDate = () => {
   const yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
+  yesterday.setDate(yesterday.getDate() - 7);
   const dd = String(yesterday.getDate()).padStart(2, "0");
   const mm = String(yesterday.getMonth() + 1).padStart(2, "0");
   const yyyy = yesterday.getFullYear();
@@ -99,8 +99,22 @@ export const LibraryDataContextProvider = ({ children }: any) => {
       });
     };
 
+    // const fakeUpdateData = async () => {
+    //   setCurrentData({
+    //     lastMeasurement: {
+    //       date: "2021-03-01",
+    //       time: "12:00",
+    //       percentage: Math.random() * 100,
+    //     },
+    //     today: [],
+    //     yesterday: [],
+    //   });
+    // };
+
     updateData();
     const interval = setInterval(updateData, 5 * 60 * 1000); // run every 5mins
+    // const interval = setInterval(fakeUpdateData, 0.01 * 60 * 1000); // run every 5mins
+
     return () => clearInterval(interval);
   }, []);
 

@@ -6,6 +6,7 @@ import AnimatedTitle from "../common/AnimatedText";
 import { FC } from "react";
 import { LibraryMeasurementInterface } from "../LibraryData/libraryDataTypes";
 import PageWideAxis from "./PageWideAxis";
+import { SMALL_SCREEN_MAX_WIDTH } from "../common/constants";
 
 const Date = styled.div`
   font-size: 2rem;
@@ -14,10 +15,14 @@ const Date = styled.div`
 `;
 
 const Detail = styled.div`
-  font-size: 1.5rem;
+  font-size: 1.3rem;
+  font-family: "Avenir Next";
+  font-style: italic;
+  line-height: 1.5rem;
   margin: 0;
   color: white;
   white-space: nowrap;
+  transform: translateX(7px);
 `;
 
 const Row = styled.div`
@@ -29,7 +34,7 @@ const Row = styled.div`
   display: flex;
   flex-direction: row;
 
-  @media (max-width: 768px) {
+  @media (max-width: ${SMALL_SCREEN_MAX_WIDTH}) {
     flex-direction: column;
   }
 `;
@@ -55,7 +60,24 @@ const Day: FC<DayProps> = ({
             <Date>{date}</Date>
             {details.map((detail) => (
               <Detail>
-                {"->"} {detail}
+                <svg
+                  style={{
+                    transform: "scale(1.3) translateY(-1px)",
+                    marginRight: 10,
+                  }}
+                  width="15"
+                  height="13"
+                  viewBox="0 0 15 13"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1 0C1 7.25926 1.62082 8.46914 14 7.8642"
+                    stroke="white"
+                  />
+                  <path d="M10 4L14 8L10 12" stroke="white" />
+                </svg>
+                {detail}
               </Detail>
             ))}
           </div>
