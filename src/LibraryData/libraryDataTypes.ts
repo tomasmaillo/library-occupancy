@@ -6,8 +6,7 @@ export interface LibraryMeasurementInterface {
 
 export interface LibraryDataInterface {
   lastMeasurement: LibraryMeasurementInterface;
-  today: LibraryMeasurementInterface[];
-  yesterday: LibraryMeasurementInterface[];
+  lastDays: Record<string, LibraryMeasurementInterface[]>;
 }
 
 export interface LibraryDataContextInterface {
