@@ -104,7 +104,7 @@ const MAX_GRAPH_WIDTH = 400;
 
 const SMALL_SCREEN_MAX_WIDTH = "768px";
 
-const NUM_OF_DAYS_TO_SHOW_FROM_TODAY = 4; // cant be greater than 6
+const NUM_OF_DAYS_TO_SHOW_FROM_TODAY = 3; // cant be greater than 6
 
 export {
   HOURS,
