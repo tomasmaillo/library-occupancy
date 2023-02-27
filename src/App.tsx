@@ -15,12 +15,14 @@ import ThemeUpdater from "./ThemeUpdater";
 import { Loading } from "./Loading";
 import { dateGenerator } from "./dateGenerator";
 import Days from "./Days";
+import { QandA } from "./QandA";
 
-const BackgroundSolidColor = styled.main`
+const PageWrapper = styled.main`
+  position: absolute;
+  width: 100%;
+  margin: auto;
   color: ${TextColor};
-  background-color: ${BackgroundColor};
   transition: 0.5s;
-  height: 100rem;
 `;
 
 const Page = () => {
@@ -28,12 +30,13 @@ const Page = () => {
   if (!currentData?.lastMeasurement.percentage) return <Loading />;
 
   return (
-    <BackgroundSolidColor>
+    <PageWrapper>
       <Header />
       <TimeAxis />
       <Days />
+      <QandA />
       <Footer />
-    </BackgroundSolidColor>
+    </PageWrapper>
   );
 };
 

@@ -2,7 +2,7 @@ import { useLayoutEffect, useState } from "react";
 import { MAX_GRAPH_WIDTH, INTERESTING_HOURS } from "./common/constants";
 import Main from "./common/Main";
 
-const height = 1000;
+const height = 1200;
 
 const TimeAxis = () => {
   const [width, setWidth] = useState(MAX_GRAPH_WIDTH);
@@ -24,6 +24,7 @@ const TimeAxis = () => {
     <Main
       style={{
         position: "relative",
+        height: 1,
         display: "flex",
         justifyContent: "flex-end",
         zIndex: 100,

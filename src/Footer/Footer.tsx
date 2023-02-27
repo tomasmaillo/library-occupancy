@@ -5,7 +5,7 @@ import Signature from "./Signature";
 const FooterGradient = styled.div`
   position: absolute;
   z-index: 200;
-  height: 500px;
+  height: 350px;
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -15,7 +15,7 @@ const FooterGradient = styled.div`
   background: linear-gradient(
     180deg,
     rgba(0, 0, 0, 0) 0%,
-    ${() => BackgroundColor()} 25%
+    ${() => BackgroundColor()} 10%
   );
 `;
 
@@ -44,17 +44,10 @@ const ByLine = () => {
 
 const Footer = () => {
   return (
-    <div
-      style={{
-        position: "relative",
-        height: "20rem",
-      }}
-    >
-      <FooterGradient>
-        <Signature />
-        <ByLine />
-      </FooterGradient>
-    </div>
+    <FooterGradient>
+      <Signature />
+      <ByLine />
+    </FooterGradient>
   );
 };
 
