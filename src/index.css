@@ -3,7 +3,11 @@ body {
   font-family: "HK Grotesk";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: 0.5s;
+}
+
+.no-scroll {
+  overflow: hidden;
+  height: 100%;
 }
 
 code {
@@ -12,12 +16,7 @@ code {
 }
 
 html {
-  overflow-x: hidden;
   transition: all 0.5s !important;
-}
-
-html body {
-  overflow-x: hidden;
 }
 
 @font-face {

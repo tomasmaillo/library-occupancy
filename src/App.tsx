@@ -17,8 +17,8 @@ import { QandA } from "./QandA";
 import { Notification } from "./Notification";
 
 const PageWrapper = styled.main`
-  position: absolute;
-  width: 100%;
+  width: 100vw;
+  overflow-x: hidden;
   margin: auto;
   color: ${TextColor};
   transition: 0.5s;

@@ -28,6 +28,38 @@ const DarkenBack = styled.div`
   z-index: 999;
 `;
 
+const TryItOutButton = styled.button`
+  background-color: ${TextColor};
+  font-family: inherit;
+  border-radius: 50px;
+  border: none;
+  color: black;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+  animation: lilshake 5s ease-in-out infinite;
+
+  &:hover {
+    opacity: 0.9;
+  }
+
+  @keyframes lilshake {
+    45% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.015) rotate(1.5deg);
+    }
+    55% {
+      transform: scale(0.995) rotate(-1.5deg);
+    }
+    60% {
+      transform: scale(1);
+    }
+  }
+`;
+
 const Notification = () => {
   const [showNotification, setShowNotification] = useState(false);
 
@@ -42,6 +74,18 @@ const Notification = () => {
       setShowNotification(true);
     }
   }, [userAgent]);
+
+  useEffect(() => {
+    if (showNotification) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+
+    return () => {
+      document.body.classList.remove("no-scroll");
+    };
+  }, [showNotification]);
 
   if (!showNotification) return null;
 
@@ -79,19 +123,7 @@ const Notification = () => {
             dismiss
           </button>
           <a href="https://www.icloud.com/shortcuts/bcd86826c4524583a29718f7da990f1a">
-            <button
-              style={{
-                backgroundColor: TextColor(),
-                cursor: "pointer",
-                borderRadius: "50px",
-                padding: "0.5rem 1rem 0.5rem 1rem",
-                border: "none",
-                fontSize: "1rem",
-                fontFamily: "inherit",
-                color: "black",
-              }}>
-              Try it out!{" "}
-            </button>
+            <TryItOutButton>Try it out! </TryItOutButton>
           </a>
         </div>
       </NotificationWrapper>

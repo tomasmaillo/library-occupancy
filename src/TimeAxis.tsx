@@ -2,7 +2,7 @@ import { useLayoutEffect, useState } from "react";
 import { MAX_GRAPH_WIDTH, INTERESTING_HOURS } from "./common/constants";
 import Main from "./common/Main";
 
-const height = 1200;
+const height = 1000;
 
 const TimeAxis = () => {
   const [width, setWidth] = useState(MAX_GRAPH_WIDTH);
@@ -28,8 +28,7 @@ const TimeAxis = () => {
         display: "flex",
         justifyContent: "flex-end",
         zIndex: 100,
-      }}
-    >
+      }}>
       <svg
         style={{
           position: "absolute",
@@ -40,8 +39,7 @@ const TimeAxis = () => {
         height={height}
         viewBox={`0 0 ${width} ${height}`}
         fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+        xmlns="http://www.w3.org/2000/svg">
         {INTERESTING_HOURS.map((time, i) => {
           // Show every second hour
           if (i % 2 !== 0) return;
@@ -63,8 +61,7 @@ const TimeAxis = () => {
                 x={(width / INTERESTING_HOURS.length) * i + 3}
                 y="10"
                 fill="#ffffff"
-                fontSize="0.5rem"
-              >
+                fontSize="0.5rem">
                 {time}
               </text>
             </>
