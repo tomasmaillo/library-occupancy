@@ -1,21 +1,20 @@
 import React from "react";
 import styled from "styled-components";
-import { AnimatePresence, motion } from "framer-motion";
-
-import { BackgroundColor, Bin, TextColor } from "./common/colors";
+import { TextColor } from "./common/colors";
 import {
   LibraryDataContextProvider,
   useLibraryData,
 } from "./LibraryData/LibraryDataContext";
 import TimeAxis from "./TimeAxis";
 import { Header } from "./Header";
-import { Day } from "./Day";
+
 import { Footer } from "./Footer";
 import ThemeUpdater from "./ThemeUpdater";
 import { Loading } from "./Loading";
-import { dateGenerator } from "./dateGenerator";
+
 import Days from "./Days";
 import { QandA } from "./QandA";
+import { Notification } from "./Notification";
 
 const PageWrapper = styled.main`
   position: absolute;
@@ -31,6 +30,7 @@ const Page = () => {
 
   return (
     <PageWrapper>
+      <Notification />
       <Header />
       <TimeAxis />
       <Days />
