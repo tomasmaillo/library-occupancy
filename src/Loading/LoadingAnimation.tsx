@@ -1,19 +1,20 @@
+import { motion } from 'framer-motion'
+
 const LoadingAnimation = () => {
   return (
     <div
       style={{
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '100%',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}>
       {/* TODO: move this svg elsewhere :D */}
 
       <svg
@@ -21,8 +22,7 @@ const LoadingAnimation = () => {
         height="127"
         viewBox="0 0 104 127"
         fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+        xmlns="http://www.w3.org/2000/svg">
         <style>
           {`
             #haiii {
@@ -50,9 +50,25 @@ const LoadingAnimation = () => {
         />
       </svg>
 
-      {/* TODO: add error output if something doesent load :D */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2 }}
+        style={{
+          marginTop: '2rem',
+          fontSize: '1rem',
+          padding: '1rem',
+          borderRadius: '1rem',
+          border: '1px solid rgba(255, 0, 0, 0.05)',
+          backgroundColor: 'rgba(255, 0, 0, 0.05)',
+          fontFamily: 'Avenir Next',
+          textAlign: 'center',
+        }}>
+        University servers are currently down <br />
+        Nothing I can do about it :(
+      </motion.div>
     </div>
-  );
-};
+  )
+}
 
-export default LoadingAnimation;
+export default LoadingAnimation
