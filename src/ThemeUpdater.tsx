@@ -1,18 +1,13 @@
-import { BackgroundColor, Bin } from "./common/colors";
-import { useLibraryData } from "./LibraryData/LibraryDataContext";
-import { Loading } from "./Loading";
+import { BackgroundColor, Bin } from './common/colors'
 
 const ThemeUpdater = () => {
-  const { currentData } = useLibraryData();
-  if (!currentData?.lastMeasurement.percentage) return <Loading />;
+  document.body.style.backgroundColor = BackgroundColor()
+  const favicon = document.getElementById('favicon') as HTMLLinkElement
+  if (favicon !== null) favicon.href = `${Bin()}.ico`
+  const theme = document.getElementById('theme-color') as HTMLMetaElement
+  if (theme !== null) theme.content = BackgroundColor()
 
-  document.body.style.backgroundColor = BackgroundColor();
-  const favicon = document.getElementById("favicon") as HTMLLinkElement;
-  if (favicon !== null) favicon.href = `${Bin()}.ico`;
-  const theme = document.getElementById("theme-color") as HTMLMetaElement;
-  if (theme !== null) theme.content = BackgroundColor();
+  return null
+}
 
-  return null;
-};
-
-export default ThemeUpdater;
+export default ThemeUpdater

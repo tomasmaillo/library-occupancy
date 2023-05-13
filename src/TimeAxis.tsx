@@ -1,38 +1,39 @@
-import { useLayoutEffect, useState } from "react";
-import { MAX_GRAPH_WIDTH, INTERESTING_HOURS } from "./common/constants";
-import Main from "./common/Main";
+import { useLayoutEffect, useState } from 'react'
+import { MAX_GRAPH_WIDTH, INTERESTING_HOURS } from './common/constants'
+import Main from './common/Main'
+import { TextColor } from './common/colors'
 
-const height = 1000;
+const height = 1000
 
 const TimeAxis = () => {
-  const [width, setWidth] = useState(MAX_GRAPH_WIDTH);
+  const [width, setWidth] = useState(MAX_GRAPH_WIDTH)
 
   useLayoutEffect(() => {
     const updateSize = () => {
       if (window.innerWidth < 760) {
-        setWidth(window.innerWidth);
+        setWidth(window.innerWidth)
       } else {
-        setWidth(Math.min(window.innerWidth / 2, MAX_GRAPH_WIDTH));
+        setWidth(Math.min(window.innerWidth / 2, MAX_GRAPH_WIDTH))
       }
-    };
-    window.addEventListener("resize", updateSize);
-    updateSize();
-    return () => window.removeEventListener("resize", updateSize);
-  }, []);
+    }
+    window.addEventListener('resize', updateSize)
+    updateSize()
+    return () => window.removeEventListener('resize', updateSize)
+  }, [])
 
   return (
     <Main
       style={{
-        position: "relative",
+        position: 'relative',
         height: 1,
-        display: "flex",
-        justifyContent: "flex-end",
+        display: 'flex',
+        justifyContent: 'flex-end',
         zIndex: 100,
       }}>
       <svg
         style={{
-          position: "absolute",
-          float: "right",
+          position: 'absolute',
+          float: 'right',
           top: -30,
         }}
         width={width}
@@ -42,9 +43,9 @@ const TimeAxis = () => {
         xmlns="http://www.w3.org/2000/svg">
         {INTERESTING_HOURS.map((time, i) => {
           // Show every second hour
-          if (i % 2 !== 0) return;
+          if (i % 2 !== 0) return
           // If width is small, show only odd axis labels
-          if (i % 4 != 0 && width < (3 * MAX_GRAPH_WIDTH) / 4) return;
+          if (i % 4 != 0 && width < (3 * MAX_GRAPH_WIDTH) / 4) return
 
           return (
             <>
@@ -64,12 +65,32 @@ const TimeAxis = () => {
                 fontSize="0.5rem">
                 {time}
               </text>
+              {time === 12 && (
+                <>
+                  <rect
+                    x={(width / INTERESTING_HOURS.length) * i}
+                    width={(width / INTERESTING_HOURS.length) * 2}
+                    height={height}
+                    fill={TextColor() + '11'}
+                  />
+                  <text
+                    x={
+                      (width / INTERESTING_HOURS.length) * i +
+                      width / INTERESTING_HOURS.length / 4
+                    }
+                    y="25"
+                    fill="#ffffff"
+                    fontSize="0.5rem">
+                    Lunchtime
+                  </text>
+                </>
+              )}
             </>
-          );
+          )
         })}
       </svg>
     </Main>
-  );
-};
+  )
+}
 
-export default TimeAxis;
+export default TimeAxis

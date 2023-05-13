@@ -53,7 +53,7 @@ const LoadingAnimation = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
+        transition={{ delay: 5 }}
         style={{
           marginTop: '2rem',
           fontSize: '1rem',
